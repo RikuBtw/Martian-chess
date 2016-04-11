@@ -21,14 +21,15 @@ public class Joueur{
   }
   public boolean equals(Object o){
     if (o instanceof Joueur){
-      return this.pseudo.equals(((Joueur)o)pseudo);
+      return this.pseudo.equals(((Joueur)o).pseudo);
     }
     return false;
   }
-  public int calculerScore(){
+  public int calculerScore(){	
 	  int score;
-	  for (int i=0; i<=8; i++){
-		  score += pionsCaptures.get(i).getscore();
+	  score = 0;
+	  for (int i=0; i<=this.pionsCaptures.size(); i++){
+		  score += ((Pion)this.pionsCaptures.get(i)).getScore();
 	  }
 	  return score;
   }
