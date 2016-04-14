@@ -49,10 +49,7 @@ public class Jeu{
 	  /**Méthode permettant d'initialiser les joueurs
 	   */
 	  public void initialiserJoueur(){
-		  
-		  
-		  joueur1 = new Joueur("Joueur 1");
-		  joueur2 = new Joueur("Joueur 2"); 
+
 	  }
   
 	  /** Teste les préconditions relatives au déplacement d'un pion dans la grille de jeu

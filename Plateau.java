@@ -2,7 +2,7 @@
 * Ceci est la classe Plateau
 *
 * @author Julien Aubert-Béduchaud, Nicolas Bourges
-*@version 1.0
+* @version 1.0
 */
 public class Plateau{
 	
@@ -48,12 +48,9 @@ public class Plateau{
 	 * 
 	 */
 	public void initialiser(){
-		//Initialisation de la taille
-		this.tailleHorizontale = 4;
-		this.tailleVerticale = 8;
 		//Initialisation des cases du plateau
-		for (int i = 0; i<= tailleHorizontale; i++){
-			for (int j = 0; j<= tailleVerticale; j++){
+		for (int i = 0; i<= tailleHorizontale-1; i++){
+			for (int j = 0; j<= tailleVerticale-1; j++){
 				this.plateau[i][j] = new Case();
 			}
 		}

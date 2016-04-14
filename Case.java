@@ -1,8 +1,8 @@
 /**
 * Ceci est la classe case
 *
-*@author Julien Aubert-Béduchaud, Nicolas Bourges
-*@version 1.0
+* @author Julien Aubert-Béduchaud, Nicolas Bourges
+* @version 1.0
 */
 public class Case{
 	
