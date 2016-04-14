@@ -1,5 +1,3 @@
-import Liste.Liste;
-
 /**
  * Ceci est la classe jeu
  *
@@ -8,8 +6,6 @@ import Liste.Liste;
  */
 public class Jeu{
 	
-	  private Liste liste1;
-	  private Liste liste2;
 	  private Joueur joueur1;
 	  private Joueur joueur2;
 	  private Plateau plateau;
@@ -22,8 +18,6 @@ public class Jeu{
 	  public Jeu(Joueur sonJoueur1, Joueur sonJoueur2){
 		  this.joueur1 = sonJoueur1;
 		  this.joueur2 = sonJoueur2;
-		  this.liste1 = null;
-		  this.liste2 = null;
 		  this.plateau = null;
 				  
 	  }
@@ -137,7 +131,7 @@ public class Jeu{
 	   * @return true si la partie est finie, false sinon
 	   */
 	  public boolean arretPartie(){
-		  return ( this.liste1.size() == 8 || this.liste2.size() == 8 );
+		  return ( this.joueur1.getPionsCaptures().size() == 8 || this.joueur2.getPionsCaptures().size() == 8 );
 	  }
 	  
 	  /** Redifinition de la méthode String toString()

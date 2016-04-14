@@ -86,23 +86,36 @@ public class Plateau{
 	public String toString(){
 		String chaine;
 		chaine = "";
-		chaine += "╔═╤═╤═╤═╗\n"
-				+ "║ │ │ │ ║\n"
-				+ "╟─┼─┼─┼─╢\n"
-				+ "║ │ │ │ ║\n"
-				+ "╟─┼─┼─┼─╢\n"
-				+ "║ │ │ │ ║\n"
-				+ "╟─┼─┼─┼─╢\n"
-				+ "║ │ │ │ ║\n"
-				+ "╠═╪═╪═╪═╣\n"
-				+ "║ │ │ │ ║\n"
-				+ "╟─┼─┼─┼─╢\n"
-				+ "║ │ │ │ ║\n"
-				+ "╟─┼─┼─┼─╢\n"
-				+ "║ │ │ │ ║\n"
-				+ "╟─┼─┼─┼─╢\n"
-				+ "║ │ │ │ ║\n"
-				+ "╚═╧═╧═╧═╝\n";
+		chaine += "╔═╤═╤═╤═╗\n";
+		for (int i = 0; i<= tailleHorizontale; i++){
+			for (int j = 0; j<= tailleVerticale; j++){ 
+				if (plateau[i][j] == null && i == 0){
+					chaine += "║ ";
+				}else if (plateau[i][j].getPion() == null && i == 3){
+					chaine += "│ ║\n";
+					chaine += "╟─┼─┼─┼─╢\n";
+				}else if (plateau[i][j].getPion() == null && i == 3 && j ==3){
+					chaine += "│ ║\n";
+					chaine += "╠═╪═╪═╪═╣\n";
+				}else if (plateau[i][j].getPion() == null && i == 3 && j ==7){
+					chaine += "│ ║\n";
+					chaine += "╚═╧═╧═╧═╝\n";
+				}else if (plateau[i][j].getPion() != null && i == 3){
+					chaine += plateau[i][j].getPion().toString() +"║\n";
+					chaine += "╟─┼─┼─┼─╢\n";
+				}else if (plateau[i][j].getPion() == null && i == 3 && j ==3){
+					chaine += plateau[i][j].getPion().toString() +"║\n";
+					chaine += "╠═╪═╪═╪═╣\n";
+				}else if (plateau[i][j].getPion() == null && i == 3 && j ==7){
+					chaine += plateau[i][j].getPion().toString() +"║\n";
+					chaine += "╚═╧═╧═╧═╝\n";
+				}else if (plateau[i][j].getPion() != null){
+					chaine += plateau[i][j].getPion().toString();	
+				}else{
+					chaine = "│ ";
+				}	
+			}
+		}
 		return chaine;
 	}
 }

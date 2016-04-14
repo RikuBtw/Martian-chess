@@ -125,7 +125,8 @@ public class GrandPion extends Pion{
 	 */
 	public String toString(){
 		String chaine;
-		chaine = "G";
+		chaine = "";
+		chaine += "│P";
 		return chaine;
 	}
 }
