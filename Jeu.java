@@ -8,17 +8,42 @@ import Liste.Liste;
  */
 public class Jeu{
 	
-	  Liste liste1 = null;
-	  Liste liste2 = null;
-	  Joueur joueur1;
-	  Joueur joueur2;
+	  private Liste liste1;
+	  private Liste liste2;
+	  private Joueur joueur1;
+	  private Joueur joueur2;
+	  private Plateau plateau;
 
+	  /**Constructeur de la classe jeu
+	   * 
+	   * @param sonJoueur1 - Joueur numéro 1
+	   * @param sonJoueur2 - Joueur numéro 2
+	   */
+	  public Jeu(Joueur sonJoueur1, Joueur sonJoueur2){
+		  this.joueur1 = sonJoueur1;
+		  this.joueur2 = sonJoueur2;
+		  this.liste1 = null;
+		  this.liste2 = null;
+		  this.plateau = null;
+				  
+	  }
+	  
 	  /**Méthode permettant d'initialiser le plateau.
 	   */
 	  public void initialiserPlateau(){
 		  
-		  Plateau plateau = new Plateau(4,8);
+		  plateau = new Plateau(4,8);
 		  plateau.initialiser();
+		  for (int i = 0; i<= plateau.getTailleHorizontale(); i++){
+			  for (int j = 0; j<= plateau.getTailleVerticale()/2; j++){
+				  plateau.getCases()[i][j].setJoueur(joueur1);
+			  }
+		  }
+		  for (int i = 0; i<= plateau.getTailleHorizontale(); i++){
+			  for (int j = (plateau.getTailleVerticale()/2)+1; j<= plateau.getTailleVerticale(); j++){
+				  plateau.getCases()[i][j].setJoueur(joueur2);
+			  }
+		  }
 	  }
 	  
 	  /**Méthode qui sera appelée par le programme principal pour faire jouer un joueur
@@ -31,6 +56,7 @@ public class Jeu{
 	   */
 	  public void initialiserJoueur(){
 		  
+		  
 		  joueur1 = new Joueur("Joueur 1");
 		  joueur2 = new Joueur("Joueur 2"); 
 	  }
@@ -38,10 +64,10 @@ public class Jeu{
 	  /** Teste les préconditions relatives au déplacement d'un pion dans la grille de jeu
 	      Cinq préconditions sont à vérifier:
 	      Le pion choisi est dans l'espace de jeu.
-	      Le chemin du pion reste dans l'espace de jeu.
-	      Le pion est sur l'espace du joueur le controllant.
+	      La case d'arrivée du pion est dans l'espace de jeu.
+	      Le pion ne peux pas sauter par dessus un autre pion.
+	      Le pion est sur l'espace du joueur le controlant.
 	      Le pion ne peut pas revenir dans la zone adverse juste après avoir été mis dans son camp.
-	      Le pion doit respecter son schéma de déplacements.
 	   * @param coordDepartX - coordonnée horizontale du point de départ
 	   * @param coordDepartY - coordonnée verticale du point de départ
 	   * @param coordArriveeX - coordonnée horizontale du point d'arrivée
@@ -49,7 +75,17 @@ public class Jeu{
 	   * @return true si le déplacement a eu lieu, false sinon
 	   */
 	  private boolean deplacementPossible(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY, Joueur joueur){
-	
+		  if(coordDepartX < 0 || coordDepartX > 4 || coordDepartY < 0 || coordDepartY > 7){
+			  return false;
+		  }
+		  if(coordArriveeX < 0 || coordArriveeX > 4 || coordArriveeY < 0 || coordArriveeY > 7){
+			  return false;
+		  }
+		  if(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur() != joueur){
+			  return false;
+		  }
+		  //2 CONDITIONS MANQUANTES
+		  return true;
 	  }
 	  
 	  /** Effectue le déplacement d'un pion en modifiant ses coordonnées (coordonnées de départ) qui prennent pour valeur les coordonnées d'arrivée.
@@ -63,7 +99,22 @@ public class Jeu{
 	   * @return true si le déplacement a eu lieu, false sinon
 	   */
 	  public boolean deplacer(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY, Joueur joueur){
-		
+		  
+		  if (this.deplacementPossible(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY, joueur) == false){
+			  return false;
+		  }else{
+			  if (plateau.getCases()[coordArriveeX][coordArriveeY].getPion() == null){
+				  coordDepartX = coordArriveeX;
+				  coordDepartY = coordArriveeY;
+			  }else{
+				  joueur.ajouterPionCapture(plateau.getCases()[coordArriveeX][coordArriveeY].getPion());
+				  coordDepartX = coordArriveeX;
+				  coordDepartY = coordArriveeY;
+			  }
+			  
+		  }
+		  return true;
+		  
 	  }
 
 	  /** Donne le joueur gagnant
@@ -93,6 +144,7 @@ public class Jeu{
 	   * 
 	   */
 	  public String toString(){
-
+		  String chaine = plateau.toString();
+		  return chaine;
 	  }
 }

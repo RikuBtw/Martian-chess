@@ -57,16 +57,6 @@ public class Plateau{
 				this.plateau[i][j] = new Case();
 			}
 		}
-		for (int i = 0; i<= tailleHorizontale; i++){
-			for (int j = 0; j<= tailleVerticale/2; j++){
-				this.plateau[i][j].setJoueur(joueur1);
-			}
-		}
-		for (int i = 0; i<= tailleHorizontale; i++){
-			for (int j = (tailleVerticale/2)+1; j<= tailleVerticale; j++){
-				this.plateau[i][j].setJoueur(joueur2);
-			}
-		}
 		//Emplacement des pions par défaut
 		//Partie Haute
 		this.plateau[0][0].setPion(new GrandPion());
@@ -79,15 +69,15 @@ public class Plateau{
 		this.plateau[3][3].setPion(new PetitPion());
 		this.plateau[1][2].setPion(new PetitPion());
 		//Partie Basse
-		this.plateau[7][7].setPion(new GrandPion());
-		this.plateau[6][7].setPion(new GrandPion());
-		this.plateau[7][6].setPion(new GrandPion());
-		this.plateau[5][7].setPion(new MoyenPion());
-		this.plateau[6][6].setPion(new MoyenPion());
-		this.plateau[7][5].setPion(new MoyenPion());
-		this.plateau[5][6].setPion(new PetitPion());
-		this.plateau[4][4].setPion(new PetitPion());
-		this.plateau[6][5].setPion(new PetitPion());
+		this.plateau[3][7].setPion(new GrandPion());
+		this.plateau[2][7].setPion(new GrandPion());
+		this.plateau[3][6].setPion(new GrandPion());
+		this.plateau[1][7].setPion(new MoyenPion());
+		this.plateau[2][6].setPion(new MoyenPion());
+		this.plateau[3][5].setPion(new MoyenPion());
+		this.plateau[1][6].setPion(new PetitPion());
+		this.plateau[1][5].setPion(new PetitPion());
+		this.plateau[2][5].setPion(new PetitPion());
 	}
 
 	/** Redéfinition de la méthode String toString()
