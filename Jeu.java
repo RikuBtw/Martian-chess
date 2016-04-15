@@ -215,7 +215,7 @@ public class Jeu{
 	  public String toString(){
 		  String chaine = plateau.toString();
 		  chaine += "\n" + joueur1.getPseudo() + " : " + joueur1.calculerScore();
-		  chaine += "\n" + joueur2.getPseudo() + " : " + joueur2.calculerScore();
+		  chaine += "\n" + joueur2.getPseudo() + " : " + joueur2.calculerScore() +"\n";
 		  return chaine;
 	  }
 }
