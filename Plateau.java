@@ -83,8 +83,7 @@ public class Plateau{
 	 */
 	public String toString(){
 		String chaine;
-		chaine = "";
-		chaine += "╔═╤═╤═╤═╗\n";
+		chaine = "╔═╤═╤═╤═╗\n";
 		for (int i = 0; i < tailleHorizontale; i++){
 			for (int j = 0; j < tailleVerticale; j++){ 
 				if (plateau[i][j] == null && i == 0){
@@ -101,10 +100,10 @@ public class Plateau{
 				}else if (plateau[i][j].getPion() != null && i == 3){
 					chaine += plateau[i][j].getPion().toString() +"║\n";
 					chaine += "╟─┼─┼─┼─╢\n";
-				}else if (plateau[i][j].getPion() == null && i == 3 && j ==3){
+				}else if (plateau[i][j].getPion() != null && i == 3 && j ==3){
 					chaine += plateau[i][j].getPion().toString() +"║\n";
 					chaine += "╠═╪═╪═╪═╣\n";
-				}else if (plateau[i][j].getPion() == null && i == 3 && j ==7){
+				}else if (plateau[i][j].getPion() != null && i == 3 && j ==7){
 					chaine += plateau[i][j].getPion().toString() +"║\n";
 					chaine += "╚═╧═╧═╧═╝\n";
 				}else if (plateau[i][j].getPion() != null){

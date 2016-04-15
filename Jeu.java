@@ -20,7 +20,6 @@ public class Jeu{
 		  this.joueur1 = sonJoueur1;
 		  this.joueur2 = sonJoueur2;
 		  this.plateau = null;
-				  
 	  }
 	  
 	  /**Méthode permettant d'initialiser le plateau.
@@ -44,13 +43,13 @@ public class Jeu{
 	  /**Méthode qui sera appelée par le programme principal pour faire jouer un joueur
 	   */
 	  public void Jouer(Joueur joueur){
-		  //Nous n'avons pas trouvé utilité à cette méthode
+		  //Nous n'avons pas compris cette méthode
 	  }
 	  
 	  /**Méthode permettant d'initialiser les joueurs
 	   */
 	  public void initialiserJoueur(){
-		  //Nous n'avons pas trouvé utilité à cette méthode
+		  //Nous n'avons pas compris cette méthode
 	  }
   
 	  /** Teste les préconditions relatives au déplacement d'un pion dans la grille de jeu
@@ -69,11 +68,11 @@ public class Jeu{
 	  private boolean deplacementPossible(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY, Joueur joueur){
 		  
 		  //check des coordonnées de départ
-		  if(coordDepartX < 0 || coordDepartX > 4 || coordDepartY < 0 || coordDepartY > 7){
+		  if(coordDepartX < 0 || coordDepartX > 3 || coordDepartY < 0 || coordDepartY > 7){
 			  return false;
 		  }
 		  //check des coordonnées d'arrivée
-		  if(coordArriveeX < 0 || coordArriveeX > 4 || coordArriveeY < 0 || coordArriveeY > 7){
+		  if(coordArriveeX < 0 || coordArriveeX > 3 || coordArriveeY < 0 || coordArriveeY > 7){
 			  return false;
 		  }
 		  //check de l'appartenance du pion au joueur
@@ -194,16 +193,18 @@ public class Jeu{
 		  if (jouerJ1 == 1 && pionBloque != null){
 			  if (pionBloque.getX() == pionDeplacableJ1.getX() && pionBloque.getY() == pionDeplacableJ1.getY()){
 				  pionDeplacableJ1 = null;
+				  jouerJ1 = 0;
 			  }
 		  }
 		  //Si le seul pion déplacable de J2 est celui qu'il vient d'entrer dans le camp ennemi, alors J2 ne peut rien déplacer
 		  if (jouerJ2 == 1 && pionBloque != null){
 			  if (pionBloque.getX() == pionDeplacableJ2.getX() && pionBloque.getY() == pionDeplacableJ2.getY()){
 				  pionDeplacableJ2 = null;
+				  jouerJ2 = 0;
 			  }
 		  }
 		  //Si aucun pion n'est déplacable, on retourne true, sinon false
-		  if (pionDeplacableJ1 == null && pionDeplacableJ2 == null){
+		  if (jouerJ1 == 0 && jouerJ2 == 0){
 			  return true;
 		  }
 		  return false;

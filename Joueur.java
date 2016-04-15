@@ -48,6 +48,9 @@ public class Joueur{
 	 * @return Taille de la liste pionsCaptures
 	 */
 	public int getNbPionsCaptures(){
+		if (this.pionsCaptures == null){
+			return 0;
+		}
 		return this.pionsCaptures.size();
 	}
   
