@@ -10,7 +10,7 @@ public abstract class Pion{
 	protected Liste deplacements;
 	
 	public Pion(){
-		this.deplacements = null;
+		this.deplacements = new Liste();
 	}
 	
 	/** Accesseur récupèrant le score d'un pion.

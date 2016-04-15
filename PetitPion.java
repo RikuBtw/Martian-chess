@@ -37,7 +37,7 @@ public class PetitPion extends Pion{
 	public String toString(){
 		String chaine;
 		chaine = "";
-		chaine += "P";
+		chaine += "○";
 		return chaine;
 	}
 }
