@@ -29,13 +29,13 @@ public class TestJeu {
 		Jeu jeu = new Jeu(joueur1, joueur2);
 		jeu.initialiserPlateau();
 		jeu.initialiserJoueur();
-		jeu.toString();
+		System.out.print(jeu.toString());
 		
+		//On initialise les inputs de coordonnées
+		int departX, departY, arriveeX, arriveeY;
 		//Tant que le jeu n'est pas fini, on demande les déplacements
 		while (jeu.arretPartie() == false){
-			//On initialise les inputs de coordonnées
-			int departX, departY, arriveeX, arriveeY;
-			
+
 			//Le premier joueur joue jusqu'à un déplacement correct
 			do{
 				System.out.print("Joueur : " + joueur1.getPseudo() + "\n" + "Coordonnee depart X: ");
@@ -48,7 +48,7 @@ public class TestJeu {
 				arriveeY = input.nextInt();
 			}
 			while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur1) == false);
-			jeu.toString();
+			System.out.print(jeu.toString());
 
 			//Le second joueur joue jusqu'à un déplacement correct
 			do{
@@ -61,10 +61,10 @@ public class TestJeu {
 				System.out.print("Coordonnee arrivée y: ");
 				arriveeY = input.nextInt();
 				jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur2);
-				jeu.toString();
+				System.out.print(jeu.toString());
 			}
 			while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur1) == false);
-			jeu.toString();
+			System.out.print(jeu.toString());
 		}
 		System.out.print("Partie terminée ! Vainqueur: " + jeu.joueurVainqueur().getPseudo());
 		input.close();

@@ -18,7 +18,7 @@ public class PetitPion extends Pion{
 	public Liste getDeplacement(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY ){
 		//Si on trouve une différence de 1 entre les coordonnées d'arrivé X&Y et celles de départ, alors le déplacement est possible, et stocké dans la liste
 		if ((Math.abs(coordArriveeX - coordDepartX) == 1) && (Math.abs(coordArriveeY - coordDepartY) == 1)){
-			deplacements.add(new Coordonnee(coordArriveeX,coordArriveeY));
+			this.deplacements.add(new Coordonnee(coordArriveeX,coordArriveeY));
 		}
 		return this.deplacements;
 	}

@@ -69,18 +69,22 @@ public class Jeu{
 		  
 		  //check des coordonnées de départ
 		  if(coordDepartX < 0 || coordDepartX > 3 || coordDepartY < 0 || coordDepartY > 7){
+			  System.out.println("Le pion choisi n'est pas dans l'espace de jeu");
 			  return false;
 		  }
 		  //check des coordonnées d'arrivée
 		  if(coordArriveeX < 0 || coordArriveeX > 3 || coordArriveeY < 0 || coordArriveeY > 7){
+			  System.out.println("La case d'arrivée n'est pas dans l'espace de jeu");
 			  return false;
 		  }
 		  //check de l'appartenance du pion au joueur
-		  if(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur().equals(joueur) == false){
+		  if(plateau.getCases()[coordDepartX][coordDepartY].getJoueur().equals(joueur) == false){
+			  System.out.println("Ce pion ne vous appartient pas");
 			  return false;
 		  }
 		  //check si le joueur mange son propre pion
 		  if(plateau.getCases()[coordDepartX][coordDepartY].getJoueur().equals(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur()) == true && plateau.getCases()[coordArriveeX][coordArriveeY].estLibre() == false){
+			  System.out.println("Vous ne pouvez pas capturer votre propre pion");
 			  return false;
 		  }
 		  //check si le pion saute un autre pion
@@ -88,12 +92,14 @@ public class Jeu{
 		  for (int i=0; i < (plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY)).size(); i++ ){
 			 //Si la case de coordonnée X et Y provenant de l'occurence de la liste déplacement n'est pas libre, alors on revoie false
 			  if (plateau.getCases()[((Coordonnee)plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY).get(i)).getX()][((Coordonnee)plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY).get(i)).getY()].estLibre() == false){
+				  System.out.println("Impossible de sauter un autre pion");
 				  return false;
 			  }
 		  }
 		  //check pour ne pas renvoyer un pion dans son camp après son arrivée, pion déterminé dans la fonction déplacer
 		  if (this.pionBloque != null){
 			  if (this.pionBloque.getX() == coordDepartX && this.pionBloque.getY() == coordDepartY){
+				  System.out.println("Vous ne pouvez pas déplacer ce pion tout de suite.");
 				  return false;
 			  }
 		  }
@@ -214,7 +220,7 @@ public class Jeu{
 	   * 
 	   */
 	  public String toString(){
-		  String chaine = plateau.toString();
+		  String chaine = this.plateau.toString();
 		  chaine += "\n" + joueur1.getPseudo() + " : " + joueur1.calculerScore();
 		  chaine += "\n" + joueur2.getPseudo() + " : " + joueur2.calculerScore() +"\n";
 		  return chaine;

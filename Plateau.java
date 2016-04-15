@@ -64,7 +64,7 @@ public class Plateau{
 		this.plateau[1][1].setPion(new MoyenPion());
 		this.plateau[0][2].setPion(new MoyenPion());
 		this.plateau[2][1].setPion(new PetitPion());
-		this.plateau[3][3].setPion(new PetitPion());
+		this.plateau[2][2].setPion(new PetitPion());
 		this.plateau[1][2].setPion(new PetitPion());
 		//Partie Basse
 		this.plateau[3][7].setPion(new GrandPion());
@@ -83,31 +83,32 @@ public class Plateau{
 	 */
 	public String toString(){
 		String chaine;
-		chaine = "╔═╤═╤═╤═╗\n";
-		for (int i = 0; i < tailleHorizontale; i++){
-			for (int j = 0; j < tailleVerticale; j++){ 
-				if (plateau[i][j] == null && i == 0){
+		chaine = "";
+		chaine += "╔═╤═╤═╤═╗\n";
+		for (int j = 0; j < tailleVerticale; j++){
+			for (int i = 0; i < tailleHorizontale; i++){ 
+				if (this.plateau[i][j] == null && i == 0){
 					chaine += "║ ";
-				}else if (plateau[i][j].getPion() == null && i == 3){
+				}else if (this.plateau[i][j].getPion() == null && i == 3){
 					chaine += "│ ║\n";
 					chaine += "╟─┼─┼─┼─╢\n";
-				}else if (plateau[i][j].getPion() == null && i == 3 && j ==3){
+				}else if (this.plateau[i][j].getPion() == null && i == 3 && j ==3){
 					chaine += "│ ║\n";
 					chaine += "╠═╪═╪═╪═╣\n";
-				}else if (plateau[i][j].getPion() == null && i == 3 && j ==7){
+				}else if (this.plateau[i][j].getPion() == null && i == 3 && j ==7){
 					chaine += "│ ║\n";
 					chaine += "╚═╧═╧═╧═╝\n";
-				}else if (plateau[i][j].getPion() != null && i == 3){
-					chaine += plateau[i][j].getPion().toString() +"║\n";
+				}else if (this.plateau[i][j].getPion() != null && i == 3){
+					chaine += this.plateau[i][j].getPion().toString() +"║\n";
 					chaine += "╟─┼─┼─┼─╢\n";
-				}else if (plateau[i][j].getPion() != null && i == 3 && j ==3){
-					chaine += plateau[i][j].getPion().toString() +"║\n";
+				}else if (this.plateau[i][j].getPion() != null && i == 3 && j ==3){
+					chaine += this.plateau[i][j].getPion().toString() +"║\n";
 					chaine += "╠═╪═╪═╪═╣\n";
-				}else if (plateau[i][j].getPion() != null && i == 3 && j ==7){
-					chaine += plateau[i][j].getPion().toString() +"║\n";
+				}else if (this.plateau[i][j].getPion() != null && i == 3 && j ==7){
+					chaine += this.plateau[i][j].getPion().toString() +"║\n";
 					chaine += "╚═╧═╧═╧═╝\n";
-				}else if (plateau[i][j].getPion() != null){
-					chaine += plateau[i][j].getPion().toString();	
+				}else if (this.plateau[i][j].getPion() != null){
+					chaine += this.plateau[i][j].getPion().toString();	
 				}else{
 					chaine = "│ ";
 				}	
