@@ -28,9 +28,7 @@ public class TestJeu {
 
 		Jeu jeu = new Jeu(joueur1, joueur2);
 		jeu.initialiserPlateau();
-		jeu.initialiserJoueur();
 		System.out.print(jeu.toString());
-		
 		//On initialise les inputs de coordonnées
 		int departX, departY, arriveeX, arriveeY;
 		//Tant que le jeu n'est pas fini, on demande les déplacements
@@ -38,7 +36,7 @@ public class TestJeu {
 
 			//Le premier joueur joue jusqu'à un déplacement correct
 			do{
-				System.out.print("Joueur : " + joueur1.getPseudo() + "\n" + "Coordonnee depart X: ");
+				System.out.print("\nJoueur : " + joueur1.getPseudo() + "\n" + "Coordonnee depart X: ");
 				departX = input.nextInt();
 				System.out.print("Coordonnee depart y: ");
 				departY = input.nextInt();
@@ -52,7 +50,7 @@ public class TestJeu {
 
 			//Le second joueur joue jusqu'à un déplacement correct
 			do{
-				System.out.print("Joueur : " + joueur2.getPseudo() + "\n" + "Coordonnee depart X: ");
+				System.out.print("\nJoueur : " + joueur2.getPseudo() + "\n" + "Coordonnee depart X: ");
 				departX = input.nextInt();
 				System.out.print("Coordonnee depart y: ");
 				departY = input.nextInt();

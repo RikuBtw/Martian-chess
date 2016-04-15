@@ -58,7 +58,7 @@ public class MoyenPion extends GrandPion{
 	public String toString(){
 		String chaine;
 		chaine = "";
-		chaine += "│M";
+		chaine += "M";
 		return chaine;
 	}
 }

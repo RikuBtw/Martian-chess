@@ -123,7 +123,7 @@ public class GrandPion extends Pion{
 	public String toString(){
 		String chaine;
 		chaine = "";
-		chaine += "│P";
+		chaine += "G";
 		return chaine;
 	}
 }

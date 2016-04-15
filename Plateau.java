@@ -82,38 +82,30 @@ public class Plateau{
 	 * 
 	 */
 	public String toString(){
-		String chaine;
-		chaine = "";
-		chaine += "╔═╤═╤═╤═╗\n";
-		for (int j = 0; j < tailleVerticale; j++){
-			for (int i = 0; i < tailleHorizontale; i++){ 
-				if (this.plateau[i][j] == null && i == 0){
-					chaine += "║ ";
-				}else if (this.plateau[i][j].getPion() == null && i == 3){
-					chaine += "│ ║\n";
-					chaine += "╟─┼─┼─┼─╢\n";
-				}else if (this.plateau[i][j].getPion() == null && i == 3 && j ==3){
-					chaine += "│ ║\n";
-					chaine += "╠═╪═╪═╪═╣\n";
-				}else if (this.plateau[i][j].getPion() == null && i == 3 && j ==7){
-					chaine += "│ ║\n";
-					chaine += "╚═╧═╧═╧═╝\n";
-				}else if (this.plateau[i][j].getPion() != null && i == 3){
-					chaine += this.plateau[i][j].getPion().toString() +"║\n";
-					chaine += "╟─┼─┼─┼─╢\n";
-				}else if (this.plateau[i][j].getPion() != null && i == 3 && j ==3){
-					chaine += this.plateau[i][j].getPion().toString() +"║\n";
-					chaine += "╠═╪═╪═╪═╣\n";
-				}else if (this.plateau[i][j].getPion() != null && i == 3 && j ==7){
-					chaine += this.plateau[i][j].getPion().toString() +"║\n";
-					chaine += "╚═╧═╧═╧═╝\n";
-				}else if (this.plateau[i][j].getPion() != null){
-					chaine += this.plateau[i][j].getPion().toString();	
+		String chaine = "";
+		chaine += "╔═╤═╤═╤═╗ \n";
+			for (int j=0; j < tailleVerticale; j++){
+				chaine += "║";
+				for (int i=0; i < tailleHorizontale; i++){
+					if (plateau[i][j].getPion() == null){
+						chaine +=" ";
+					}else{				
+						chaine += plateau[i][j].getPion().toString(); 
+					}
+					if (i != 3){
+						chaine += "│";
+					}else{
+						chaine += "║";
+					}
+				}
+				if (j == 7){
+					chaine += "\n╚═╧═╧═╧═╝ \n";
+				}else if (j == 3){
+					chaine += "\n╠═╪═╪═╪═╣ \n";
 				}else{
-					chaine = "│ ";
-				}	
+					chaine += "\n╟─┼─┼─┼─╢ \n";
+				}
 			}
-		}
-		return chaine;
+			return chaine;
 	}
 }
