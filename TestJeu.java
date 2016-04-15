@@ -29,6 +29,7 @@ public class TestJeu {
 		Jeu jeu = new Jeu(joueur1, joueur2);
 		jeu.initialiserPlateau();
 		jeu.initialiserJoueur();
+		jeu.toString();
 		
 		//Tant que le jeu n'est pas fini, on demande les déplacements
 		while (jeu.arretPartie() == false){

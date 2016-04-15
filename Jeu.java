@@ -9,6 +9,7 @@ public class Jeu{
 	  private Joueur joueur1;
 	  private Joueur joueur2;
 	  private Plateau plateau;
+	  private Coordonnee pionBloque = null;
 
 	  /**Constructeur de la classe jeu
 	   * 
@@ -28,13 +29,13 @@ public class Jeu{
 		  
 		  plateau = new Plateau(4,8);
 		  plateau.initialiser();
-		  for (int i = 0; i<= plateau.getTailleHorizontale(); i++){
-			  for (int j = 0; j<= plateau.getTailleVerticale()/2; j++){
+		  for (int i = 0; i < plateau.getTailleHorizontale(); i++){
+			  for (int j = 0; j < plateau.getTailleVerticale()/2; j++){
 				  plateau.getCases()[i][j].setJoueur(joueur1);
 			  }
 		  }
-		  for (int i = 0; i<= plateau.getTailleHorizontale(); i++){
-			  for (int j = (plateau.getTailleVerticale()/2)+1; j<= plateau.getTailleVerticale(); j++){
+		  for (int i = 0; i < plateau.getTailleHorizontale(); i++){
+			  for (int j = plateau.getTailleVerticale()/2; j < plateau.getTailleVerticale(); j++){
 				  plateau.getCases()[i][j].setJoueur(joueur2);
 			  }
 		  }
@@ -43,13 +44,13 @@ public class Jeu{
 	  /**Méthode qui sera appelée par le programme principal pour faire jouer un joueur
 	   */
 	  public void Jouer(Joueur joueur){
-
+		  //Nous n'avons pas trouvé utilité à cette méthode
 	  }
 	  
 	  /**Méthode permettant d'initialiser les joueurs
 	   */
 	  public void initialiserJoueur(){
-
+		  //Nous n'avons pas trouvé utilité à cette méthode
 	  }
   
 	  /** Teste les préconditions relatives au déplacement d'un pion dans la grille de jeu
@@ -91,6 +92,12 @@ public class Jeu{
 				  return false;
 			  }
 		  }
+		  //check pour ne pas renvoyer un pion dans son camp après son arrivée, pion déterminé dans la fonction déplacer
+		  if (this.pionBloque != null){
+			  if (this.pionBloque.getX() == coordDepartX && this.pionBloque.getY() == coordDepartY){
+				  return false;
+			  }
+		  }
 		  return true;
 		  
 	  }
@@ -107,17 +114,32 @@ public class Jeu{
 	   */
 	  public boolean deplacer(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY, Joueur joueur){
 		  
+		  //Si le déplacement est impossible, on renvoie que le déplacement n'a pas eu lieu, sinon on continue le déplacement
 		  if (this.deplacementPossible(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY, joueur) == false){
 			  return false;
 		  }else{
-			  if (plateau.getCases()[coordArriveeX][coordArriveeY].getPion() == null){
-				  coordDepartX = coordArriveeX;
-				  coordDepartY = coordArriveeY;
+			  //On stocke le pion déplacé dans une vriable temporaire et on le supprime du plateau
+			  Pion pionDeplace = this.plateau.getCases()[coordDepartX][coordDepartY].getPion();
+			  this.plateau.getCases()[coordDepartX][coordDepartY].setPion(null);
+			  
+			  //Si il y a un pion sur l'arrivée, on le capture et on place le pion, sinon on place juste le pion
+			  if (plateau.getCases()[coordArriveeX][coordArriveeY].estLibre() == false){
+				  joueur.ajouterPionCapture(this.plateau.getCases()[coordArriveeX][coordArriveeY].getPion());
+				  this.plateau.getCases()[coordDepartX][coordDepartY].setPion(null);
+				  this.plateau.getCases()[coordArriveeX][coordArriveeY].setPion(pionDeplace);
 			  }else{
-				  joueur.ajouterPionCapture(plateau.getCases()[coordArriveeX][coordArriveeY].getPion());
-				  coordDepartX = coordArriveeX;
-				  coordDepartY = coordArriveeY;
+				  this.plateau.getCases()[coordArriveeX][coordArriveeY].setPion(pionDeplace);
 			  }
+			  
+			  //On regarde si le pion a changé de camp
+			  if (plateau.getCases()[coordDepartX][coordDepartY].getJoueur().equals(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur()) == false){
+				  //Si oui, on redéfini les coordonnées du pion
+				  this.pionBloque = new Coordonnee(coordArriveeX, coordArriveeY);
+			  }else{
+				  //Sinon, on passe la valeur à null
+				  this.pionBloque = null;
+			  }
+			  
 			  
 		  }
 		  return true;
@@ -144,7 +166,44 @@ public class Jeu{
 	   * @return true si la partie est finie, false sinon
 	   */
 	  public boolean arretPartie(){
-		  if ( this.joueur1.getPionsCaptures().size() == 8 || this.joueur2.getPionsCaptures().size() == 8 ){
+		  
+		  int jouerJ1 = 0;
+		  Coordonnee pionDeplacableJ1 = null;
+		  int jouerJ2 = 0;
+		  Coordonnee pionDeplacableJ2 = null;
+		  
+		  //On cherche le nombre de pions que J1 peut déplacer, on stocke les coordonnées du dernier trouvé pour les utiliser si il ne lui reste qu'un pion
+		  for (int i = 0; i < this.plateau.getTailleHorizontale(); i++){
+				for (int j = 0; j < this.plateau.getTailleVerticale()/2; j++){
+					if (this.plateau.getCases()[i][j].estLibre() == false){
+						jouerJ1 ++;
+						pionDeplacableJ1 = new Coordonnee(i,j);
+					}
+				}
+		  }
+		  //On cherche le nombre de pions que J2 peut déplacer, on stocke les coordonnées du dernier trouvé pour les utiliser si il ne lui reste qu'un pion
+		  for (int i = 0; i < this.plateau.getTailleHorizontale(); i++){
+				for (int j = this.plateau.getTailleVerticale()/2; j < this.plateau.getTailleVerticale(); j++){
+					if (this.plateau.getCases()[i][j].estLibre() == false){
+						jouerJ2 ++;
+						pionDeplacableJ2 = new Coordonnee(i,j);
+					}
+				}
+		  }
+		  //Si le seul pion déplacable de J1 est celui qu'il vient d'entrer dans le camp ennemi, alors J1 ne peut rien déplacer
+		  if (jouerJ1 == 1 && pionBloque != null){
+			  if (pionBloque.getX() == pionDeplacableJ1.getX() && pionBloque.getY() == pionDeplacableJ1.getY()){
+				  pionDeplacableJ1 = null;
+			  }
+		  }
+		  //Si le seul pion déplacable de J2 est celui qu'il vient d'entrer dans le camp ennemi, alors J2 ne peut rien déplacer
+		  if (jouerJ2 == 1 && pionBloque != null){
+			  if (pionBloque.getX() == pionDeplacableJ2.getX() && pionBloque.getY() == pionDeplacableJ2.getY()){
+				  pionDeplacableJ2 = null;
+			  }
+		  }
+		  //Si aucun pion n'est déplacable, on retourne true, sinon false
+		  if (pionDeplacableJ1 == null && pionDeplacableJ2 == null){
 			  return true;
 		  }
 		  return false;
@@ -155,6 +214,8 @@ public class Jeu{
 	   */
 	  public String toString(){
 		  String chaine = plateau.toString();
+		  chaine += "\n" + joueur1.getPseudo() + " : " + joueur1.calculerScore();
+		  chaine += "\n" + joueur2.getPseudo() + " : " + joueur2.calculerScore();
 		  return chaine;
 	  }
 }

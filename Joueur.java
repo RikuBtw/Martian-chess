@@ -69,8 +69,10 @@ public class Joueur{
 	public int calculerScore(){	
 		int score;
 		score = 0;
-		for (int i=0; i<=this.pionsCaptures.size(); i++){
-			score += ((Pion)this.pionsCaptures.get(i)).getScore();
+		if (this.getNbPionsCaptures() != 0){
+			for (int i = 0; i < this.pionsCaptures.size(); i++){
+				score += ((Pion)this.pionsCaptures.get(i)).getScore();
+			}
 		}
 		return score;
 	}

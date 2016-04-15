@@ -50,8 +50,8 @@ public class Plateau{
 	 */
 	public void initialiser(){
 		//Initialisation des cases du plateau
-		for (int j = 0; j < tailleHorizontale; j++){
-			for (int i = 0; i < tailleVerticale; i++){
+		for (int i = 0; i < tailleHorizontale; i++){
+			for (int j = 0; j < tailleVerticale; j++){
 				this.plateau[i][j] = new Case();
 			}
 		}
@@ -85,8 +85,8 @@ public class Plateau{
 		String chaine;
 		chaine = "";
 		chaine += "╔═╤═╤═╤═╗\n";
-		for (int i = 0; i<= tailleHorizontale; i++){
-			for (int j = 0; j<= tailleVerticale; j++){ 
+		for (int i = 0; i < tailleHorizontale; i++){
+			for (int j = 0; j < tailleVerticale; j++){ 
 				if (plateau[i][j] == null && i == 0){
 					chaine += "║ ";
 				}else if (plateau[i][j].getPion() == null && i == 3){
