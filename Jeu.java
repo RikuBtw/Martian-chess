@@ -84,10 +84,15 @@ public class Jeu{
 			  return false;
 		  }
 		  //check si le pion saute un autre pion
+		  //On check la liste de déplacement du pion de la première à l'avant-dernière valeur (l'arrivée ne compte pas)
 		  for (int i=0; i < (plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY)).size(); i++ ){
-			  
+			 //Si la case de coordonnée X et Y provenant de l'occurence de la liste déplacement n'est pas libre, alors on revoie false
+			  if (plateau.getCases()[((Coordonnee)plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY).get(i)).getX()][((Coordonnee)plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY).get(i)).getY()].estLibre() == false){
+				  return false;
+			  }
 		  }
 		  return true;
+		  
 	  }
 	  
 	  /** Effectue le déplacement d'un pion en modifiant ses coordonnées (coordonnées de départ) qui prennent pour valeur les coordonnées d'arrivée.
