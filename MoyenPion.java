@@ -38,10 +38,11 @@ public class MoyenPion extends GrandPion{
 	 * @return Liste contenant le chemin de déplacement si possible, sinon null
 	 */
 	public Liste getDeplacement(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY){
+		Liste deplacements = new Liste();
 		if (this.longueurOk(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY) == true){
-			this.deplacements = super.getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY);
+			deplacements = super.getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY);
 		}
-		return this.deplacements;
+		return 	deplacements;
 	}
 	
 	/** Récupère le score d'un pion
@@ -57,8 +58,7 @@ public class MoyenPion extends GrandPion{
 	 */
 	public String toString(){
 		String chaine;
-		chaine = "";
-		chaine += "◌";
+		chaine = "●";
 		return chaine;
 	}
 }

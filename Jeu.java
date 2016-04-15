@@ -1,3 +1,4 @@
+import Liste.Liste;
 /**
  * Ceci est la classe jeu
  *
@@ -26,16 +27,16 @@ public class Jeu{
 	   */
 	  public void initialiserPlateau(){
 		  
-		  plateau = new Plateau(4,8);
-		  plateau.initialiser();
-		  for (int i = 0; i < plateau.getTailleHorizontale(); i++){
-			  for (int j = 0; j < plateau.getTailleVerticale()/2; j++){
-				  plateau.getCases()[i][j].setJoueur(joueur1);
+		  this.plateau = new Plateau(4,8);
+		  this.plateau.initialiser();
+		  for (int i = 0; i < this.plateau.getTailleHorizontale(); i++){
+			  for (int j = 0; j < this.plateau.getTailleVerticale()/2; j++){
+				  this.plateau.getCases()[i][j].setJoueur(joueur1);
 			  }
 		  }
-		  for (int i = 0; i < plateau.getTailleHorizontale(); i++){
-			  for (int j = plateau.getTailleVerticale()/2; j < plateau.getTailleVerticale(); j++){
-				  plateau.getCases()[i][j].setJoueur(joueur2);
+		  for (int i = 0; i < this.plateau.getTailleHorizontale(); i++){
+			  for (int j = this.plateau.getTailleVerticale()/2; j < this.plateau.getTailleVerticale(); j++){
+				  this.plateau.getCases()[i][j].setJoueur(joueur2);
 			  }
 		  }
 	  }
@@ -53,7 +54,8 @@ public class Jeu{
 	  }
   
 	  /** Teste les préconditions relatives au déplacement d'un pion dans la grille de jeu
-	      Cinq préconditions sont à vérifier:
+	      Des préconditions sont à vérifier:
+	      Le mouvement doit être disponible.
 	      Le pion choisi et la case d'arrivée du pion sont dans l'espace de jeu.
 	      Le pion ne peux pas sauter par dessus un autre pion.
 	      Le pion est sur l'espace du joueur le controlant.
@@ -67,35 +69,54 @@ public class Jeu{
 	   */
 	  private boolean deplacementPossible(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY, Joueur joueur){
 		  
+		  //variables permettant d'alléger le code des lignes suivantes
+		  int i = 0;
+		  Case raccourciCaseD = this.plateau.getCases()[coordDepartX][coordDepartY];
+		  Case raccourciCaseA = this.plateau.getCases()[coordArriveeX][coordArriveeY];
+		  Liste raccourciDeplacementD = raccourciCaseD.getPion().getDeplacement(coordDepartX,coordDepartY,coordArriveeX,coordArriveeY);
+		  Coordonnee RGetI = ((Coordonnee)raccourciDeplacementD.get(i));
+		  
 		  //check des coordonnées de départ
 		  if(coordDepartX < 0 || coordDepartX > 3 || coordDepartY < 0 || coordDepartY > 7){
 			  System.out.println("Le pion choisi n'est pas dans l'espace de jeu");
 			  return false;
 		  }
+		  
 		  //check des coordonnées d'arrivée
 		  if(coordArriveeX < 0 || coordArriveeX > 3 || coordArriveeY < 0 || coordArriveeY > 7){
 			  System.out.println("La case d'arrivée n'est pas dans l'espace de jeu");
 			  return false;
 		  }
+
 		  //check de l'appartenance du pion au joueur
-		  if(plateau.getCases()[coordDepartX][coordDepartY].getJoueur().equals(joueur) == false){
+		  if(raccourciCaseD.getJoueur().equals(joueur) == false){
 			  System.out.println("Ce pion ne vous appartient pas");
 			  return false;
 		  }
+		  
 		  //check si le joueur mange son propre pion
-		  if(plateau.getCases()[coordDepartX][coordDepartY].getJoueur().equals(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur()) == true && plateau.getCases()[coordArriveeX][coordArriveeY].estLibre() == false){
+		  if(raccourciCaseD.equals(raccourciCaseA) == true && raccourciCaseA.estLibre() == false){
 			  System.out.println("Vous ne pouvez pas capturer votre propre pion");
 			  return false;
 		  }
+		  
 		  //check si le pion saute un autre pion
-		  //On check la liste de déplacement du pion de la première à l'avant-dernière valeur (l'arrivée ne compte pas)
-		  for (int i=0; i < (plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY)).size(); i++ ){
-			 //Si la case de coordonnée X et Y provenant de l'occurence de la liste déplacement n'est pas libre, alors on revoie false
-			  if (plateau.getCases()[((Coordonnee)plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY).get(i)).getX()][((Coordonnee)plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY).get(i)).getY()].estLibre() == false){
-				  System.out.println("Impossible de sauter un autre pion");
-				  return false;
+		  if (raccourciDeplacementD.size() != 0){
+			  //On check la liste de déplacement du pion de la première à l'avant-dernière valeur (l'arrivée ne compte pas)
+			  for (i=0; i < raccourciDeplacementD.size(); i++ ){
+				 //Si la case de coordonnée X et Y provenant de l'occurence de la liste déplacement n'est pas libre, alors on revoie false
+				  if (this.plateau.getCases()[RGetI.getX()][RGetI.getY()].estLibre() == false){
+					  System.out.println("Impossible de sauter un autre pion");
+					  return false;
+				  }
 			  }
 		  }
+		  //check si le déplacement est disponible.
+		  if (raccourciDeplacementD.size() == 0) {
+			  System.out.println("Ce mouvement est impossible.");
+			  return false;
+		  }
+		  
 		  //check pour ne pas renvoyer un pion dans son camp après son arrivée, pion déterminé dans la fonction déplacer
 		  if (this.pionBloque != null){
 			  if (this.pionBloque.getX() == coordDepartX && this.pionBloque.getY() == coordDepartY){
@@ -123,12 +144,12 @@ public class Jeu{
 		  if (this.deplacementPossible(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY, joueur) == false){
 			  return false;
 		  }else{
-			  //On stocke le pion déplacé dans une vriable temporaire et on le supprime du plateau
+			  //On stocke le pion déplacé dans une variable temporaire et on le supprime du plateau
 			  Pion pionDeplace = this.plateau.getCases()[coordDepartX][coordDepartY].getPion();
 			  this.plateau.getCases()[coordDepartX][coordDepartY].setPion(null);
 			  
 			  //Si il y a un pion sur l'arrivée, on le capture et on place le pion, sinon on place juste le pion
-			  if (plateau.getCases()[coordArriveeX][coordArriveeY].estLibre() == false){
+			  if (this.plateau.getCases()[coordArriveeX][coordArriveeY].estLibre() == false){
 				  joueur.ajouterPionCapture(this.plateau.getCases()[coordArriveeX][coordArriveeY].getPion());
 				  this.plateau.getCases()[coordDepartX][coordDepartY].setPion(null);
 				  this.plateau.getCases()[coordArriveeX][coordArriveeY].setPion(pionDeplace);
@@ -137,7 +158,7 @@ public class Jeu{
 			  }
 			  
 			  //On regarde si le pion a changé de camp
-			  if (plateau.getCases()[coordDepartX][coordDepartY].getJoueur().equals(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur()) == false){
+			  if (this.plateau.getCases()[coordDepartX][coordDepartY].getJoueur().equals(this.plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur()) == false){
 				  //Si oui, on redéfini les coordonnées du pion
 				  this.pionBloque = new Coordonnee(coordArriveeX, coordArriveeY);
 			  }else{
@@ -156,14 +177,15 @@ public class Jeu{
 	   * @return Le joueur gagnant ou null si les 2 joueurs sont ex aequo
 	   */
 	  public Joueur joueurVainqueur(){
+		  Joueur gagne = null;
 		  if (this.joueur1.calculerScore() < this.joueur2.calculerScore()){
-			  return joueur1;
+			  gagne = joueur1;
 		  }else if (this.joueur1.calculerScore() > this.joueur2.calculerScore()){
-			  return joueur2;
+			  gagne = joueur2;
 		  }else if (this.joueur1.calculerScore() == this.joueur2.calculerScore()){
-			  return null;
+			  gagne = null;
 		  }
-		  return joueur1;
+		  return gagne;
 	  }
 	  
 	  /** Permet de savoir si la partie est finie ou non
@@ -196,15 +218,15 @@ public class Jeu{
 				}
 		  }
 		  //Si le seul pion déplacable de J1 est celui qu'il vient d'entrer dans le camp ennemi, alors J1 ne peut rien déplacer
-		  if (jouerJ1 == 1 && pionBloque != null){
-			  if (pionBloque.getX() == pionDeplacableJ1.getX() && pionBloque.getY() == pionDeplacableJ1.getY()){
+		  if (jouerJ1 == 1 && this.pionBloque != null){
+			  if (this.pionBloque.getX() == pionDeplacableJ1.getX() && pionBloque.getY() == pionDeplacableJ1.getY()){
 				  pionDeplacableJ1 = null;
 				  jouerJ1 = 0;
 			  }
 		  }
 		  //Si le seul pion déplacable de J2 est celui qu'il vient d'entrer dans le camp ennemi, alors J2 ne peut rien déplacer
-		  if (jouerJ2 == 1 && pionBloque != null){
-			  if (pionBloque.getX() == pionDeplacableJ2.getX() && pionBloque.getY() == pionDeplacableJ2.getY()){
+		  if (jouerJ2 == 1 && this.pionBloque != null){
+			  if (this.pionBloque.getX() == pionDeplacableJ2.getX() && this.pionBloque.getY() == pionDeplacableJ2.getY()){
 				  pionDeplacableJ2 = null;
 				  jouerJ2 = 0;
 			  }
@@ -221,8 +243,8 @@ public class Jeu{
 	   */
 	  public String toString(){
 		  String chaine = this.plateau.toString();
-		  chaine += "\n" + joueur1.getPseudo() + " : " + joueur1.calculerScore();
-		  chaine += "\n" + joueur2.getPseudo() + " : " + joueur2.calculerScore() +"\n";
+		  chaine += "\n" + this.joueur1.getPseudo() + " : " + this.joueur1.calculerScore();
+		  chaine += "\n" + this.joueur2.getPseudo() + " : " + this.joueur2.calculerScore() +"\n";
 		  return chaine;
 	  }
 }

@@ -16,11 +16,12 @@ public class PetitPion extends Pion{
 	 * @return Liste contenant le chemin de coordonées de déplacement si possible, sinon null
 	 */
 	public Liste getDeplacement(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY ){
+		Liste deplacements = new Liste();
 		//Si on trouve une différence de 1 entre les coordonnées d'arrivé X&Y et celles de départ, alors le déplacement est possible, et stocké dans la liste
 		if ((Math.abs(coordArriveeX - coordDepartX) == 1) && (Math.abs(coordArriveeY - coordDepartY) == 1)){
-			this.deplacements.add(new Coordonnee(coordArriveeX,coordArriveeY));
+			deplacements.add(new Coordonnee(coordArriveeX,coordArriveeY));
 		}
-		return this.deplacements;
+		return deplacements;
 	}
 	
 	/** Récupère le score d'un pion
@@ -36,8 +37,7 @@ public class PetitPion extends Pion{
 	 */
 	public String toString(){
 		String chaine;
-		chaine = "";
-		chaine += "○";
+		chaine = "○";
 		return chaine;
 	}
 }

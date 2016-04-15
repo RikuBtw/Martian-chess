@@ -25,15 +25,15 @@ public class TestJeu {
 			}
 		}
 		while (joueur2.equals(joueur1) == true);
-
+		//On initialise le jeu
 		Jeu jeu = new Jeu(joueur1, joueur2);
 		jeu.initialiserPlateau();
+		//On l'affiche
 		System.out.print(jeu.toString());
 		//On initialise les inputs de coordonnées
 		int departX, departY, arriveeX, arriveeY;
 		//Tant que le jeu n'est pas fini, on demande les déplacements
-		while (jeu.arretPartie() == false){
-
+		do{
 			//Le premier joueur joue jusqu'à un déplacement correct
 			do{
 				System.out.print("\nJoueur : " + joueur1.getPseudo() + "\n" + "Coordonnee depart X: ");
@@ -44,10 +44,13 @@ public class TestJeu {
 				arriveeX = input.nextInt();
 				System.out.print("Coordonnee arrivée y: ");
 				arriveeY = input.nextInt();
-			}
-			while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur1) == false);
+			}while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur1) == false);
+			//On affiche le plateau après le déplacement
 			System.out.print(jeu.toString());
-
+			//Si la partie se termine durant ce tour, on stoppe la boucle
+			if (jeu.arretPartie() == true){
+				break;
+			}
 			//Le second joueur joue jusqu'à un déplacement correct
 			do{
 				System.out.print("\nJoueur : " + joueur2.getPseudo() + "\n" + "Coordonnee depart X: ");
@@ -60,10 +63,11 @@ public class TestJeu {
 				arriveeY = input.nextInt();
 				jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur2);
 				System.out.print(jeu.toString());
-			}
-			while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur1) == false);
+			}while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur2) == false);
+			//On affiche le plateau après déplacement
 			System.out.print(jeu.toString());
-		}
+		}while (jeu.arretPartie() == false);
+		//On affiche le vainqueur
 		System.out.print("Partie terminée ! Vainqueur: " + jeu.joueurVainqueur().getPseudo());
 		input.close();
 	}
