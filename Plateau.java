@@ -8,16 +8,17 @@ public class Plateau{
 	
 	private int tailleHorizontale;
 	private int tailleVerticale;
-	private Case[][] plateau = new Case[tailleHorizontale][tailleVerticale];
+	private Case plateau[][];
 
 	/** Constructeur du plateau
 	 * 
 	 * @param tailleHorizontale
 	 * @param tailleVerticale
 	 */
-	public Plateau(int tailleHorizontale, int tailleVerticale){
-		this.tailleHorizontale = tailleHorizontale;
-		this.tailleVerticale = tailleVerticale;
+	public Plateau(int saTailleHorizontale, int saTailleVerticale){
+		this.tailleHorizontale = saTailleHorizontale;
+		this.tailleVerticale = saTailleVerticale;
+		this.plateau = new Case[this.tailleHorizontale][this.tailleVerticale];
 	}
 	
 	/**Accesseur renvoyant les cases du plateau
@@ -49,8 +50,8 @@ public class Plateau{
 	 */
 	public void initialiser(){
 		//Initialisation des cases du plateau
-		for (int i = 0; i<= tailleHorizontale-1; i++){
-			for (int j = 0; j<= tailleVerticale-1; j++){
+		for (int j = 0; j < tailleHorizontale; j++){
+			for (int i = 0; i < tailleVerticale; i++){
 				this.plateau[i][j] = new Case();
 			}
 		}

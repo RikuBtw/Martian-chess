@@ -54,10 +54,10 @@ public class Jeu{
   
 	  /** Teste les préconditions relatives au déplacement d'un pion dans la grille de jeu
 	      Cinq préconditions sont à vérifier:
-	      Le pion choisi est dans l'espace de jeu.
-	      La case d'arrivée du pion est dans l'espace de jeu.
+	      Le pion choisi et la case d'arrivée du pion sont dans l'espace de jeu.
 	      Le pion ne peux pas sauter par dessus un autre pion.
 	      Le pion est sur l'espace du joueur le controlant.
+	      Le joueur ne peut pas capturer son propre pion.
 	      Le pion ne peut pas revenir dans la zone adverse juste après avoir été mis dans son camp.
 	   * @param coordDepartX - coordonnée horizontale du point de départ
 	   * @param coordDepartY - coordonnée verticale du point de départ
@@ -66,16 +66,27 @@ public class Jeu{
 	   * @return true si le déplacement a eu lieu, false sinon
 	   */
 	  private boolean deplacementPossible(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY, Joueur joueur){
+		  
+		  //check des coordonnées de départ
 		  if(coordDepartX < 0 || coordDepartX > 4 || coordDepartY < 0 || coordDepartY > 7){
 			  return false;
 		  }
+		  //check des coordonnées d'arrivée
 		  if(coordArriveeX < 0 || coordArriveeX > 4 || coordArriveeY < 0 || coordArriveeY > 7){
 			  return false;
 		  }
-		  if(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur() != joueur){
+		  //check de l'appartenance du pion au joueur
+		  if(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur().equals(joueur) == false){
 			  return false;
 		  }
-		  //2 CONDITIONS MANQUANTES
+		  //check si le joueur mange son propre pion
+		  if(plateau.getCases()[coordDepartX][coordDepartY].getJoueur().equals(plateau.getCases()[coordArriveeX][coordArriveeY].getJoueur()) == true && plateau.getCases()[coordArriveeX][coordArriveeY].estLibre() == false){
+			  return false;
+		  }
+		  //check si le pion saute un autre pion
+		  for (int i=0; i < (plateau.getCases()[coordDepartX][coordDepartY].getPion().getDeplacement(coordDepartX, coordDepartY, coordArriveeX, coordArriveeY)).size(); i++ ){
+			  
+		  }
 		  return true;
 	  }
 	  
@@ -128,7 +139,10 @@ public class Jeu{
 	   * @return true si la partie est finie, false sinon
 	   */
 	  public boolean arretPartie(){
-		  return ( this.joueur1.getPionsCaptures().size() == 8 || this.joueur2.getPionsCaptures().size() == 8 );
+		  if ( this.joueur1.getPionsCaptures().size() == 8 || this.joueur2.getPionsCaptures().size() == 8 ){
+			  return true;
+		  }
+		  return false;
 	  }
 	  
 	  /** Redifinition de la méthode String toString()

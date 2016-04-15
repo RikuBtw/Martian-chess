@@ -13,7 +13,7 @@ public class PetitPion extends Pion{
 	 * @param coordDepartY coordonnée verticale de départ
 	 * @param coordArriveeX coordonnée horizontale d'arrivée
 	 * @param coordArriveeY coordonnée verticale du d'arrivée
-	 * @return Liste contenant le chemin de déplacement si possible, sinon null
+	 * @return Liste contenant le chemin de coordonées de déplacement si possible, sinon null
 	 */
 	public Liste getDeplacement(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY ){
 		//Si on trouve une différence de 1 entre les coordonnées d'arrivé X&Y et celles de départ, alors le déplacement est possible, et stocké dans la liste
