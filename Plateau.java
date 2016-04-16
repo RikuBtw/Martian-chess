@@ -82,13 +82,14 @@ public class Plateau{
 	 * 
 	 */
 	public String toString(){
-		String chaine = "";
-		chaine += "╔═╤═╤═╤═╗ \n";
+		String chaine = "\n";
+		chaine += "   0   1   2   3   \n";
+		chaine += " ╔═══╤═══╤═══╤═══╗ \n";
 			for (int j=0; j < this.tailleVerticale; j++){
-				chaine += "║";
+				chaine += j+"║";
 				for (int i=0; i < this.tailleHorizontale; i++){
 					if (this.plateau[i][j].getPion() == null){
-						chaine +=" ";
+						chaine +="   ";
 					}else{				
 						chaine += this.plateau[i][j].getPion().toString(); 
 					}
@@ -99,11 +100,11 @@ public class Plateau{
 					}
 				}
 				if (j == 7){
-					chaine += "\n╚═╧═╧═╧═╝ \n";
+					chaine += "\n ╚═══╧═══╧═══╧═══╝ \n";
 				}else if (j == 3){
-					chaine += "\n╠═╪═╪═╪═╣ \n";
+					chaine += "\n ╠═══╪═══╪═══╪═══╣ \n";
 				}else{
-					chaine += "\n╟─┼─┼─┼─╢ \n";
+					chaine += "\n ╟───┼───┼───┼───╢ \n";
 				}
 			}
 			return chaine;

@@ -87,9 +87,12 @@ public class Jeu{
 		  int i = 0;
 		  Case raccourciCaseD = this.plateau.getCases()[coordDepartX][coordDepartY];
 		  Case raccourciCaseA = this.plateau.getCases()[coordArriveeX][coordArriveeY];
-		  Liste raccourciDeplacementD = raccourciCaseD.getPion().getDeplacement(coordDepartX,coordDepartY,coordArriveeX,coordArriveeY);
-		  Coordonnee RGetI = ((Coordonnee)raccourciDeplacementD.get(i));
-		  
+
+		  //check de l'existence du pion
+		  if(raccourciCaseD.getPion() == null){
+			  System.out.println("Veuillez déplacer un pion");
+			  return false;
+		  }
 		  //check de l'appartenance du pion au joueur
 		  if(raccourciCaseD.getJoueur().equals(joueur) == false){
 			  System.out.println("Ce pion ne vous appartient pas");
@@ -101,6 +104,9 @@ public class Jeu{
 			  System.out.println("Vous ne pouvez pas capturer votre propre pion");
 			  return false;
 		  }
+		  //variables permettant d'alléger le code des lignes suivantes
+		  Liste raccourciDeplacementD = raccourciCaseD.getPion().getDeplacement(coordDepartX,coordDepartY,coordArriveeX,coordArriveeY);
+		  Coordonnee RGetI = ((Coordonnee)raccourciDeplacementD.get(i));
 		  
 		  //check si le pion saute un autre pion
 		  if (raccourciDeplacementD.size() > 1){
@@ -181,9 +187,9 @@ public class Jeu{
 	  public Joueur joueurVainqueur(){
 		  Joueur gagne = null;
 		  if (this.joueur1.calculerScore() < this.joueur2.calculerScore()){
-			  gagne = joueur1;
-		  }else if (this.joueur1.calculerScore() > this.joueur2.calculerScore()){
 			  gagne = joueur2;
+		  }else if (this.joueur1.calculerScore() > this.joueur2.calculerScore()){
+			  gagne = joueur1;
 		  }else if (this.joueur1.calculerScore() == this.joueur2.calculerScore()){
 			  gagne = null;
 		  }
@@ -237,6 +243,12 @@ public class Jeu{
 		  if (jouerJ1 == 0 && jouerJ2 == 0){
 			  return true;
 		  }
+		  if (jouerJ1 == 1 && jouerJ2 == 0){
+			  return true;
+		  }
+		  if (jouerJ1 == 0 && jouerJ2 == 1){
+			  return true;
+		  }
 		  return false;
 	  }
 	  
@@ -244,9 +256,9 @@ public class Jeu{
 	   * 
 	   */
 	  public String toString(){
-		  String chaine = this.plateau.toString();
-		  chaine += "\n" + this.joueur1.getPseudo() + " : " + this.joueur1.calculerScore();
-		  chaine += "\n" + this.joueur2.getPseudo() + " : " + this.joueur2.calculerScore() +"\n";
+		  String chaine = "\nJoueur " + this.joueur1.getPseudo() + " : " + this.joueur1.calculerScore()+"\n";
+		  chaine += this.plateau.toString();
+		  chaine += "\nJoueur " + this.joueur2.getPseudo() + " : " + this.joueur2.calculerScore() +"\n";
 		  return chaine;
 	  }
 }

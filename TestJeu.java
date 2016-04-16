@@ -61,8 +61,6 @@ public class TestJeu {
 				arriveeX = input.nextInt();
 				System.out.print("Coordonnee arrivée y: ");
 				arriveeY = input.nextInt();
-				jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur2);
-				System.out.print(jeu.toString());
 			}while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur2) == false);
 			//On affiche le plateau après déplacement
 			System.out.print(jeu.toString());

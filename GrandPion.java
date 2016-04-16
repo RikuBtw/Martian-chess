@@ -81,14 +81,26 @@ public class GrandPion extends Pion{
 		if (coordArriveeX - coordDepartX == coordArriveeY - coordDepartY && coordArriveeX - coordDepartX != 0){
 			//On détermine le nombre de cases à parcourir.
 			int compteur = Math.abs(coordArriveeX-coordDepartX);
-			//Si la case est sur une coordonnée inférieure à celle de départ, on va decrémenter les coordonnées de départ de 1 en 1 jusqu'à celles d'arrivées.
-			if (coordArriveeX < coordDepartX){
+			//Diagonale Haut-Gauche
+			if (coordArriveeX < coordDepartX && coordArriveeX < coordArriveeY){
 				for(int i=1;i <= compteur;i++){
 					deplacements.add(new Coordonnee(coordDepartX-i,coordDepartY-i));
 				}
 			}
-			//Si la case est sur une coordonnée supérieure à celle de départ, on va incrémenter les coordonnées de départ de 1 en 1 jusqu'à celles d'arrivées.
-			if (coordArriveeX > coordDepartX){
+			//Diagonale Haut-Droite
+			if (coordArriveeX < coordDepartX && coordArriveeX > coordArriveeY){
+				for(int i=1;i <= compteur;i++){
+					deplacements.add(new Coordonnee(coordDepartX-i,coordDepartY+i));
+				}
+			}
+			//Diagonale Bas-Gauche
+			if (coordArriveeX > coordDepartX && coordArriveeX < coordArriveeY){
+				for(int i=1;i <= compteur;i++){
+					deplacements.add(new Coordonnee(coordDepartX+i,coordDepartY-i));
+				}
+			}
+			//Diagonale Bas-Droite
+			if (coordArriveeX > coordDepartX && coordArriveeX > coordArriveeY){
 				for(int i=1;i <= compteur;i++){
 					deplacements.add(new Coordonnee(coordDepartX+i,coordDepartY+i));
 				}
@@ -132,7 +144,7 @@ public class GrandPion extends Pion{
 	 */
 	public String toString(){
 		String chaine;
-		chaine = "□";
+		chaine = " □ ";
 		return chaine;
 	}
 }
