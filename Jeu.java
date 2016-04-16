@@ -69,12 +69,7 @@ public class Jeu{
 	   */
 	  private boolean deplacementPossible(int coordDepartX, int coordDepartY, int coordArriveeX, int coordArriveeY, Joueur joueur){
 		  
-		  //variables permettant d'alléger le code des lignes suivantes
-		  int i = 0;
-		  Case raccourciCaseD = this.plateau.getCases()[coordDepartX][coordDepartY];
-		  Case raccourciCaseA = this.plateau.getCases()[coordArriveeX][coordArriveeY];
-		  Liste raccourciDeplacementD = raccourciCaseD.getPion().getDeplacement(coordDepartX,coordDepartY,coordArriveeX,coordArriveeY);
-		  Coordonnee RGetI = ((Coordonnee)raccourciDeplacementD.get(i));
+		  
 		  
 		  //check des coordonnées de départ
 		  if(coordDepartX < 0 || coordDepartX > 3 || coordDepartY < 0 || coordDepartY > 7){
@@ -87,7 +82,14 @@ public class Jeu{
 			  System.out.println("La case d'arrivée n'est pas dans l'espace de jeu");
 			  return false;
 		  }
-
+		  
+		  //variables permettant d'alléger le code des lignes suivantes
+		  int i = 0;
+		  Case raccourciCaseD = this.plateau.getCases()[coordDepartX][coordDepartY];
+		  Case raccourciCaseA = this.plateau.getCases()[coordArriveeX][coordArriveeY];
+		  Liste raccourciDeplacementD = raccourciCaseD.getPion().getDeplacement(coordDepartX,coordDepartY,coordArriveeX,coordArriveeY);
+		  Coordonnee RGetI = ((Coordonnee)raccourciDeplacementD.get(i));
+		  
 		  //check de l'appartenance du pion au joueur
 		  if(raccourciCaseD.getJoueur().equals(joueur) == false){
 			  System.out.println("Ce pion ne vous appartient pas");
@@ -101,7 +103,7 @@ public class Jeu{
 		  }
 		  
 		  //check si le pion saute un autre pion
-		  if (raccourciDeplacementD.size() != 0){
+		  if (raccourciDeplacementD.size() > 1){
 			  //On check la liste de déplacement du pion de la première à l'avant-dernière valeur (l'arrivée ne compte pas)
 			  for (i=0; i < raccourciDeplacementD.size(); i++ ){
 				 //Si la case de coordonnée X et Y provenant de l'occurence de la liste déplacement n'est pas libre, alors on revoie false

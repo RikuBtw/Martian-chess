@@ -16,7 +16,7 @@ public class Joueur{
 	 */
 	public Joueur(java.lang.String pseudo){
 		this.pseudo = pseudo;
-		this.pionsCaptures = null;
+		this.pionsCaptures = new Liste();
 	}
 	
 	/** Méthode renvoyant la liste des pion capturés
