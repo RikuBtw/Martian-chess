@@ -83,8 +83,7 @@ public class Plateau{
 	 */
 	public String toString(){
 		String chaine = "\n";
-		chaine += "   0   1   2   3   \n";
-		chaine += " ╔═══╤═══╤═══╤═══╗ \n";
+		chaine += " ╔═══╤═══╤═══╤═══╗\n";
 			for (int j=0; j < this.tailleVerticale; j++){
 				chaine += j+"║";
 				for (int i=0; i < this.tailleHorizontale; i++){
@@ -101,6 +100,7 @@ public class Plateau{
 				}
 				if (j == 7){
 					chaine += "\n ╚═══╧═══╧═══╧═══╝ \n";
+					chaine += "   0   1   2   3   \n";
 				}else if (j == 3){
 					chaine += "\n ╠═══╪═══╪═══╪═══╣ \n";
 				}else{

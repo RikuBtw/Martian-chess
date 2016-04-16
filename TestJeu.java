@@ -12,10 +12,14 @@ public class TestJeu {
 		
 		Joueur joueur1;
 		Joueur joueur2;
-		System.out.println("Entrez le pseudo du premier joueur");
+		System.out.println("┌──────────────────────────────────╖");
+		System.out.println("│Entrez le pseudo du premier joueur║");
+		System.out.println("╘══════════════════════════════════╝");
 		String nom = input.nextLine();
 		joueur1 = new Joueur(nom);
-		System.out.println("Entrez le pseudo du deuxième joueur");
+		System.out.println("┌──────────────────────────────────╖");
+		System.out.println("│Entrez le pseudo du second joueur ║");
+		System.out.println("╘══════════════════════════════════╝");
 		//On vérifie si les pseudos sont similaires
 		do{
 			nom = input.nextLine();
@@ -36,15 +40,17 @@ public class TestJeu {
 		do{
 			//Le premier joueur joue jusqu'à un déplacement correct
 			do{
-				System.out.print("\nJoueur : " + joueur1.getPseudo() + "\n" + "Coordonnee depart X: ");
+				System.out.println("\n╒═════════════════════════");
+				System.out.print("│Joueur : " + joueur1.getPseudo() + "\n" + "│Coordonnee depart X: ");
 				departX = input.nextInt();
-				System.out.print("Coordonnee depart y: ");
+				System.out.print("│Coordonnee depart y: ");
 				departY = input.nextInt();
-				System.out.print("Coordonnee arrivée x: ");
+				System.out.print("│Coordonnee arrivée x: ");
 				arriveeX = input.nextInt();
-				System.out.print("Coordonnee arrivée y: ");
+				System.out.print("│Coordonnee arrivée y: ");
 				arriveeY = input.nextInt();
 			}while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur1) == false);
+			System.out.println("╘═════════════════════════");
 			//On affiche le plateau après le déplacement
 			System.out.print(jeu.toString());
 			//Si la partie se termine durant ce tour, on stoppe la boucle
@@ -53,15 +59,17 @@ public class TestJeu {
 			}
 			//Le second joueur joue jusqu'à un déplacement correct
 			do{
-				System.out.print("\nJoueur : " + joueur2.getPseudo() + "\n" + "Coordonnee depart X: ");
+				System.out.println("\n╒═════════════════════════");
+				System.out.print("│Joueur : " + joueur2.getPseudo() + "\n" + "│Coordonnee depart X: ");
 				departX = input.nextInt();
-				System.out.print("Coordonnee depart y: ");
+				System.out.print("│Coordonnee depart y: ");
 				departY = input.nextInt();
-				System.out.print("Coordonnee arrivée x: ");
+				System.out.print("│Coordonnee arrivée x: ");
 				arriveeX = input.nextInt();
-				System.out.print("Coordonnee arrivée y: ");
+				System.out.print("│Coordonnee arrivée y: ");
 				arriveeY = input.nextInt();
 			}while(jeu.deplacer(departX, departY, arriveeX, arriveeY, joueur2) == false);
+			System.out.println("╘═════════════════════════");
 			//On affiche le plateau après déplacement
 			System.out.print(jeu.toString());
 		}while (jeu.arretPartie() == false);

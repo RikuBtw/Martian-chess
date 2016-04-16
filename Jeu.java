@@ -73,13 +73,15 @@ public class Jeu{
 		  
 		  //check des coordonnées de départ
 		  if(coordDepartX < 0 || coordDepartX > 3 || coordDepartY < 0 || coordDepartY > 7){
-			  System.out.println("Le pion choisi n'est pas dans l'espace de jeu");
+			  System.out.println("│Le pion choisi n'est pas dans l'espace de jeu");
+			  System.out.println("╘═════════════════════════");
 			  return false;
 		  }
 		  
 		  //check des coordonnées d'arrivée
 		  if(coordArriveeX < 0 || coordArriveeX > 3 || coordArriveeY < 0 || coordArriveeY > 7){
-			  System.out.println("La case d'arrivée n'est pas dans l'espace de jeu");
+			  System.out.println("│La case d'arrivée n'est pas dans l'espace de jeu");
+			  System.out.println("╘═════════════════════════");
 			  return false;
 		  }
 		  
@@ -90,18 +92,21 @@ public class Jeu{
 
 		  //check de l'existence du pion
 		  if(raccourciCaseD.getPion() == null){
-			  System.out.println("Veuillez déplacer un pion");
+			  System.out.println("│Veuillez déplacer un pion");
+			  System.out.println("╘═════════════════════════");
 			  return false;
 		  }
 		  //check de l'appartenance du pion au joueur
 		  if(raccourciCaseD.getJoueur().equals(joueur) == false){
-			  System.out.println("Ce pion ne vous appartient pas");
+			  System.out.println("│Ce pion ne vous appartient pas");
+			  System.out.println("╘═════════════════════════");
 			  return false;
 		  }
 		  
 		  //check si le joueur mange son propre pion
 		  if(raccourciCaseD.equals(raccourciCaseA) == true && raccourciCaseA.estLibre() == false){
-			  System.out.println("Vous ne pouvez pas capturer votre propre pion");
+			  System.out.println("│Vous ne pouvez pas capturer votre propre pion");
+			  System.out.println("╘═════════════════════════");
 			  return false;
 		  }
 		  //variables permettant d'alléger le code des lignes suivantes
@@ -114,21 +119,24 @@ public class Jeu{
 			  for (i=0; i < raccourciDeplacementD.size(); i++ ){
 				 //Si la case de coordonnée X et Y provenant de l'occurence de la liste déplacement n'est pas libre, alors on revoie false
 				  if (this.plateau.getCases()[RGetI.getX()][RGetI.getY()].estLibre() == false){
-					  System.out.println("Impossible de sauter un autre pion");
+					  System.out.println("│Impossible de sauter un autre pion");
+					  System.out.println("╘═════════════════════════");
 					  return false;
 				  }
 			  }
 		  }
 		  //check si le déplacement est disponible.
 		  if (raccourciDeplacementD.size() == 0) {
-			  System.out.println("Ce mouvement est impossible.");
+			  System.out.println("│Ce mouvement est impossible.");
+			  System.out.println("╘═════════════════════════");
 			  return false;
 		  }
 		  
 		  //check pour ne pas renvoyer un pion dans son camp après son arrivée, pion déterminé dans la fonction déplacer
 		  if (this.pionBloque != null){
 			  if (this.pionBloque.getX() == coordDepartX && this.pionBloque.getY() == coordDepartY){
-				  System.out.println("Vous ne pouvez pas déplacer ce pion tout de suite.");
+				  System.out.println("│Vous ne pouvez pas déplacer ce pion tout de suite.");
+				  System.out.println("╘═════════════════════════");
 				  return false;
 			  }
 		  }
@@ -256,9 +264,11 @@ public class Jeu{
 	   * 
 	   */
 	  public String toString(){
-		  String chaine = "\nJoueur " + this.joueur1.getPseudo() + " : " + this.joueur1.calculerScore()+"\n";
+		  String chaine = "\n│ Joueur " + this.joueur1.getPseudo() + " : " + this.joueur1.calculerScore()+"\n";
+		  chaine += "└──────────────────";
 		  chaine += this.plateau.toString();
-		  chaine += "\nJoueur " + this.joueur2.getPseudo() + " : " + this.joueur2.calculerScore() +"\n";
+		  chaine += "┌──────────────────";
+		  chaine += "\n│ Joueur " + this.joueur2.getPseudo() + " : " + this.joueur2.calculerScore() +"\n";
 		  return chaine;
 	  }
 }
